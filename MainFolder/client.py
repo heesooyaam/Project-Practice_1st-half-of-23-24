@@ -56,6 +56,9 @@ def SET_FILE():
     with open(filePath, 'rb') as file:
         file_data = file.read()
     setFile = f"INSERT INTO {table_name} (filename, data) VALUES ({fileName}, {file_data}) "
+    sock.send(setFile.encode('utf8'))
+    data = sock.recv(1024)
+    sock.close()
 
 
 actions = ['CREATE_TABLE', 'SET_DATA', "GET_DATA"]
