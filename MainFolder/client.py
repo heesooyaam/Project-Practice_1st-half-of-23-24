@@ -39,12 +39,24 @@ def SET():
     sock.connect(('127.0.0.1', 2000))
     print('Print table_name')
     table_name = str(input())
-    set = f"INSERT INTO {table_name} (id, name, surname, birthdate) VALUES (2, 'Petr', 'Ivanov', '2003-12-13') "
+    print("Enter columns, stop with 0")
+    columns = input()
+    cur = input()
+    while cur != '0':
+        columns += ', ' + cur
+        cur = input()
+    print("Enter new values, stop with 0")
+    value = input()
+    cur_ = input()
+    while cur_ != '0':
+        value += ', ' + cur
+        cur_ = input()
+    set = f"INSERT INTO {table_name} ({columns}) VALUES ({value}) "
     sock.send(set.encode('utf8'))
     data = sock.recv(1024)
     sock.close()
-
     print('I post: ', data)
+    
 def SET_FILE():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect(('127.0.0.1', 2000))
